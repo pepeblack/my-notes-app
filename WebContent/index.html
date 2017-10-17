@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Note Pro</title>
+	<link rel="stylesheet" href="css/first-theme/first-theme.css">
+	<link rel="stylesheet" href="css/rating.css">
+	<script src="lib/rating/rating.js"></script>
+	<script src="lib/mustache/mustache.min.js" ></script>
+	<script src="lib/moments/moment-with-locales.min.js"></script>
+	<script type="module" src="js/startup.js"></script>
+	<script id="note_template" type="text/html">
+		{{#notes}}
+		  	<div id="note">
+			    <div class= "column1 boarder">
+					<p> {{renderr_reminig}} <br> {{renderr_doDate}} </p>
+				</div>
+			    <div class= "column2 boarder">{{titel}}</div>
+	    		<div class= "column3 boarder">
+					<ul class="c-rating">
+						{{{renderr_rating}}}
+					</ul>
+			    </div>
+	    		<div class= "column1 boarder">
+		    		<input type="checkbox" name="finished" data-index="{{id}}" {{renderr_done}} />
+					<label for="finished">Finished</label>
+		    	</div>
+		    	<div class= "column24 boarder">
+			    	<p id="content">{{{renderr_description}}}</p>
+		    	</div>
+		    	<div class= "box4 boarder">
+			    	<button onclick="location.href='./newNote.html?id={{id}}';" type="button">Edit</button>
+				</div> 
+	  		</div>
+		{{/notes}}
+		{{^notes}}
+		  	<div id="note">
+				<p class= "column24">There are currently no notes available</p>
+	  		</div>
+		{{/notes}}
+	</script>
+	<script id="rating_template" type="text/html">
+		<ul class="c-rating">
+			{{#isActive}}
+				<li class="c-rating__item is-static is-active" data-index="{{data-index}}"></li>
+			{{/isActive}}
+			{{#isNotActive}}
+				<li class="c-rating__item is-static" data-index="{{data-index}}"></li>
+			{{/isNotActive}}
+		</ul>
+	</script>
+</head>
+
+<body>
+  <div id="command1">
+    <!--- Kopfzeile --->
+    <button id="newNote" class="column1" type="button">Create new Note</button> 
+    <select id="style" class="column4" name="style">
+    	<option value="first-theme">first-style</option>
+    	<option value="second-theme">second-style</option>
+    </select>
+  </div>
+
+  <div id="command2">
+    <!--- Selction/Sortierung --->
+    <button id="byFinishDate" type="button">By finish Date</button> 
+    <button id="byCreationDate" type="button">By create Date</button> 
+    <button id="byImportance" type="button">By Importance</button> 
+	<button id="showFinished" type="button">Show finished</button> 
+  </div>
+  
+  <div id="notes">
+  	<div id="note">
+		<p class= "column24"></p>
+	</div>
+  </div>
+
+  <footer>
+    <!--- Fußzeile --->
+  </footer>
+
+</body>
+
+</html>
