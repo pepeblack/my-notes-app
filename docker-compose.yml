@@ -3,5 +3,11 @@ nginx:
     ports:
         - 80:80
     volumes:
-        - ./WebContent:/var/www/html
+        - ./frontend:/var/www/html
 
+nodejs:
+    build: ./notejs
+    ports:
+        - 8080:8080
+    volumes:
+        - .:/app

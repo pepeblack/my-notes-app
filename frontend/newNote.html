@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Note Pro</title>
+	<link id="stylesheet" rel="stylesheet" href="/css/standard.css" titel="standard layout">
+	<link rel="stylesheet" href="css/rating.css">
+	<link rel="stylesheet" href="css/pikaday.css">
+	<link rel="stylesheet" href="css/layout.css">
+	<script src="lib/moments/moment-with-locales.min.js"></script>
+	<script src="lib/pikaday/pikaday.js"></script>
+	<script src="lib/rating/rating.js"></script>
+	<script type="module" src="js/startup.js"></script>	
+</head>
+
+<body>
+	<header>
+		<h1>
+			<img class="box12" src="../images/note.png" style="height: 1em"/>
+			<div class="box22" >My-Notes-App!</div>
+			<input class="column3 button js-user" type="button" value="Logout" id="logout" >
+			<select id="style" class="column3 button" name="style">
+				<option value="./css/standard.css">standard style</option>
+				<option value="./css/classic.css">classic style</option>
+			</select>
+		</h1>
+	</header>
+
+  	<div id="note">
+		<label class="column1" >Titel</label>
+	 	<input id="titel" class= "column2" type="text" name="titel">
+		<div id="titel-error" class="column35 input-valid tooltip">
+			<img titel="error" src="../images/error.png"/>
+			<span class="tooltiptext">Titel can not be empty!</span>
+		</div>
+		<label class="column1" >Description</label>
+		<textarea id="description" class= "column24" name="description"></textarea>
+		<label class="column1" >Priority</label>
+		<ul class="c-rating column2"></ul>
+		<label class="column1" >Done till:</label>
+		<div class="column2">
+			<input id="datepicker" type="text">
+		    <lable for="datepicker" id="selected"></lable>
+		</div>
+		<div id="dodate-error" class="column35 input-valid tooltip">
+			<img titel="error" src="../images/error.png"/>
+			<span class="tooltiptext">The date is not valid!</span>
+		</div>
+		<div id="el"></div>
+	</div>
+
+	<footer>
+		<!--- Selction/Sortierung --->
+		<button class= "button column1" id="save" type="button">save</button>
+		<button class= "button column4" id="cancel" type="button">cancel</button>
+	</footer>
+</body>
+</html>

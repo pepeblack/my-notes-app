@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+
+header {
+	border-bottom: 1px solid lightgray;
+}
+
+.boarder {
+ 	border: 1px solid lightgray;
+	padding: 0.5em;
+}
+
+.button {
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	background-color: deepskyblue;
+}
+
+.list-button {
+	margin: 0.1em;
+}
+
+.delete-button {
+	width:40px;
+	height:40px;
+	border: 0;
+	margin: 0.1em;
+	background: url("../images/delete.png");
+	background-position: 0 0;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.edit-button {
+	width:40px;
+	height:40px;
+	border: 0;
+	margin: 0.1em;
+	background: url("../images/edit.png");
+	background-position: 0 0;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.mycheckbox {
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+	align-items: center;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	background-color: deepskyblue;
+	overflow: hidden
+}
+
+.mycheckbox input{
+	display: none;
+}
+
+.mycheckbox label{
+	text-align: center;
+	grid-column: 2;
+}
+
+.mycheckbox .icheck_line-icon {
+	grid-column: 1;
+	width: 13px;
+	height: 11px;
+	background: url(../images/line.png) no-repeat;
+}
+
+.mycheckbox input:checked + .icheck_line-icon {
+	background-position: -15px 0;
+}
+
+.myradio {
+	display: grid;
+	align-self: center;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	background-color: deepskyblue;
+	overflow: hidden
+}
+
+.myradio input{
+	display: none;
+}
+
+.myradio label{
+	text-align: center;
+}
+
+.myradio input:checked + label,
+.myradio input:checked + label:active {
+	background-color: salmon;
+}
+
+#note {
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 0.5em;
+	background-color: lightyellow;
+}
+
+#notes #note:hover {
+	border: 1px solid lightgray;
+}
+
+img {
+	height: 1em;
+}
+
+.input-valid {
+	visibility: hidden;
+}
+
+.input-not-valid {
+	visibility: visible;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: white;
+	color: red;
+	text-align: center;
+	border-radius: 3px;
+	border: 1px solid red;
+	padding: 5px 0;
+
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}

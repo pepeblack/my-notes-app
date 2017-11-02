@@ -8,6 +8,7 @@
 let notePrivates = new WeakMap();
 let noteListPrivates = new WeakMap();
 let ratingPrivates = new WeakMap();
+let userPrivates = new WeakMap();
 
 /**
  * Class represent the list of notes 
@@ -32,7 +33,7 @@ export class NoteList {
 	 */
 	createNote() {
 		let noteList = noteListPrivates.get(this);
-		let note = new Note(noteList.length , "", "", new Rating(5, 0), "", new Date(), "");
+		let note = new Note(noteList.length, "" , "", "", new Rating(5, 0), "", new Date(), "");
 		noteList.push(note);
 		return note;
 	}
@@ -40,9 +41,9 @@ export class NoteList {
 	/**
 	 * Finds the note with the given id
 	 */
-	find(id){
+	find(_id){
 		return this.notes.find((note, i) => {
-			return note.id == id;
+			return note._id == _id;
 		});
 	}
 	
@@ -64,7 +65,6 @@ export class NoteList {
 	 * Stores the current list of notes to storage
 	 */
 	store() {
-		JSON.stringify();
 		sessionStorage.setItem('noteList', JSON.stringify(this.toJSON()));
 	}
 
@@ -92,24 +92,68 @@ export class NoteList {
 		
 		return new NoteList(noteList);
 	}
-	
+
+    /**
+	 * Static method to load the notes list from json
+     * @param json
+     * @returns {NoteList}
+     */
+    static fromJSON(json) {
+        let noteList = [];
+        for (var i in json) {
+            noteList.push(Note.fromJSON(json[i]));
+        }
+        return new NoteList(json);
+    }
 }
 
 /**
  * Class represents a single node
  */
 export class Note {
-	constructor(id, titel, description, rating, doDate, createDate, done) {
-		notePrivates.set(this, {id, titel, description, rating, doDate, createDate, done})
+	constructor(_id, user, state, titel, description, rating, doDate, createDate, done) {
+        if (state == undefined){
+            state = "NEW";
+        }
+        if (user == undefined){
+            user = User.fromStorage().email;
+        }
+		if (rating == undefined){
+			rating = new Rating(5, 0);
+		}
+        if (createDate == undefined){
+            createDate = new Date();
+        }
+		notePrivates.set(this, {_id, user, state, titel, description, rating, doDate, createDate, done})
 	}
 	
 	/**
 	 * The id of this note
 	 */
-	get id() {
-		return notePrivates.get(this).id;
+	get _id() {
+		return notePrivates.get(this)._id;
 	}
-	
+
+    /**
+     * The user of this note
+     */
+    get user() {
+        return notePrivates.get(this).user;
+    }
+    set user(user) {
+        notePrivates.get(this).user = user;
+    }
+
+    /**
+     * The state of the note
+     */
+    get state() {
+        return notePrivates.get(this).state;
+    }
+    set state(state) {
+        notePrivates.get(this).user = state;
+    }
+
 	/**
 	 * The titel of the note
 	 */
@@ -147,7 +191,7 @@ export class Note {
 		return notePrivates.get(this).doDate;
 	}
 	set doDate(doDate) {
-		notePrivates.get(this).doDate = doDate;rating
+		notePrivates.get(this).doDate = doDate;
 	}
 
 	/**
@@ -168,14 +212,14 @@ export class Note {
 	}
 	
 	/**
-	 * conferts to json format
+	 * converts to json format
 	 */
 	toJSON() {
 		return notePrivates.get(this);
 	}
 
 	static fromJSON(json) {
-		return new Note (json.id, json.titel, json.description, json.rating, json.doDate, json.createDate, json.done);
+		return new Note (json._id, json.user, json.state, json.titel, json.description, json.rating, json.doDate, json.createDate, json.done);
 	}
 };
 
@@ -209,7 +253,7 @@ export class Rating {
 	}
 	
 	/**
-	 * conferts to json format
+	 * converts to json format
 	 */
 	toJSON() {
 		return ratingPrivates.get(this);
@@ -218,4 +262,86 @@ export class Rating {
 	static fromJSON(json) {
 		return new Rating (json.max, json.current);
 	}
+};
+
+
+
+/**
+ * Class representing the User
+ */
+export class User {
+    /**
+	 * The constructor
+     * @param email the email of the user
+     * @param token the token
+     */
+    constructor(email, token) {
+        userPrivates.set(this, {email, token})
+    }
+
+    /**
+     * The email of the user
+     */
+    get email() {
+        return userPrivates.get(this).email;
+    }
+    set email(email) {
+        userPrivates.get(this).email = email;
+    }
+
+    /**
+     * The token
+     */
+    get token() {
+        return userPrivates.get(this).token;
+    }
+    set token(token) {
+        userPrivates.get(this).token = token;
+    }
+
+    /**
+	 * Checks if the user is logged in
+     * @returns {boolean} True if logged in
+     */
+    isLoggedIn(){
+    	if (this.token != undefined && this.token.length > 0) {
+    		return true;
+		} else {
+            return false;
+		}
+	}
+
+    /**
+	 * Logout the current user. Will delete the token
+     */
+	logout(){
+    	this.token = undefined;
+    	this.store();
+	}
+
+    /**
+     * Stores the current list of notes to storage
+     */
+    store() {
+        sessionStorage.setItem('token', JSON.stringify(this.toJSON()));
+    }
+
+    /**
+     * converts to json format
+     */
+    toJSON() {
+        return userPrivates.get(this);
+    }
+
+    /**
+     * Static method to load the user from storage
+     */
+    static fromStorage() {
+        let obj = JSON.parse(sessionStorage.getItem('token'));
+        if (obj) {
+            return new User(obj.email, obj.token);
+        } else {
+            return new User("", "");
+		}
+    }
 };

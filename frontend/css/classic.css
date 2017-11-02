@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+header {
+    border-bottom: 1px solid lightgray;
+}
+
+.boarder {
+ 	border: 1px solid black;
+    padding: 0.5em;
+}
+
+.list-button {
+    margin: 0.5em;
+}
+
+#note {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#note:first-child, body #note {
+    border-top: 1px solid black;
+}
+
+.mycheckbox .icheck_line-icon{
+    display: none;
+}
+
+img {
+    height: 1em;
+}
+
+
+#note {
+    margin-bottom: 0.5em;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: white;
+    color: red;
+    text-align: center;
+    border: 1px solid red;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

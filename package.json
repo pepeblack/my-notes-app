@@ -1,0 +1,19 @@
+{
+  "name": "my-notes-app",
+  "version": "1.0.0",
+  "description": "CAS FEE My Notes App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "daniel tellenbach",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.12.4",
+    "express": "^4.12.4",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.1.9",
+    "nedb": "^1.8.0",
+    "nodemon": "^1.8.1"
+  }
+}

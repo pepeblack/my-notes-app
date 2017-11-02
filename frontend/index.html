@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Note Pro</title>
+	<link id="stylesheet" rel="stylesheet" href="/css/standard.css" titel="standard layout">
+	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="css/rating.css">
+	<script src="lib/rating/rating.js"></script>
+	<script src="lib/mustache/mustache.min.js" ></script>
+	<script src="lib/moments/moment-with-locales.min.js"></script>
+	<script type="module" src="js/startup.js"></script>
+	<script id="note_template" type="text/html">
+		{{#notes}}
+		  	<div id="note">
+			    <div class= "column1">
+					<p> {{renderr_reminig}} <br> {{renderr_doDate}} </p>
+				</div>
+			    <div class= "column2">{{titel}}</div>
+	    		<div class= "column3">
+					<ul class="c-rating">
+						{{{renderr_rating}}}
+					</ul>
+			    </div>
+	    		<div class= "mycheckbox column1 ">
+		    		<input type="checkbox" id="finished_{{_id}}" name="finished" data-index="{{_id}}" {{renderr_done}} />
+					<div class="icheck_line-icon"></div>
+					<label for="finished_{{_id}}">Finished</label>
+		    	</div>
+
+				<div class= "column24 boarder">
+			    	<p id="content">{{{renderr_description}}}</p>
+		    	</div>
+		    	<div class= "box4 ">
+			    	<button class="list-button button" onclick="location.href='./newNote.html?id={{_id}}';" type="button">edit</button>
+					<button class="list-button button" name="delete" data-index="{{_id}}" type="delete">delete</button>
+				</div>
+	  		</div>
+		{{/notes}}
+		{{^notes}}
+		  	<div id="note">
+				<p class= "column24">There are currently no notes available</p>
+	  		</div>
+		{{/notes}}
+	</script>
+	<script id="rating_template" type="text/html">
+		<ul class="c-rating">
+			{{#isActive}}
+				<li class="c-rating__item is-static is-active" data-index="{{data-index}}"></li>
+			{{/isActive}}
+			{{#isNotActive}}
+				<li class="c-rating__item is-static" data-index="{{data-index}}"></li>
+			{{/isNotActive}}		</h1>
+
+		</ul>
+	</script>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<img class="box12" src="../images/note.png" style="height: 1em"/>
+			<div class="box22" >My-Notes-App!</div>
+			<input class="column3 button js-user" type="button" value="Logout" id="logout" >
+			<input class="column3 button js-no-user" type="button" value="Login" id="login" >
+			<select id="style" class="column3 button" name="style">
+				<option value="./css/standard.css">standard style</option>
+				<option value="./css/classic.css">classic style</option>
+			</select>
+		</h1>
+	</header>
+
+	<div id="command1" class="js-user">
+		<button id="newNote" class="column1 button " type="button">Create new Note</button>
+	</div>
+
+	<div id="command2" class="js-user">
+		<div class="myradio column1" >
+			<input type="radio" id="byFinishDate" name="sort">
+			<label for="byFinishDate">By finish Date</label>
+		</div>
+		<div class="myradio column2" >
+			<input type="radio" id="byCreationDate" name="sort">
+			<label for="byCreationDate">By create Date</label>
+		</div>
+		<div class="myradio column3" >
+			<input type="radio" id="byImportance" name="sort">
+			<label for="byImportance">By Importance</label>
+		</div>
+		<div class="mycheckbox column5" >
+			<input id="showFinished" type="checkbox">
+			<div class="icheck_line-icon"></div>
+			<label for="showFinished">Show finished</label>
+		</div>
+
+	</div>
+
+	<div id="notes" class="js-user">
+	<div id="note">
+		<p class= "column24"></p>
+	</div>
+	</div>
+
+	<footer>
+	<!--- Fußzeile --->
+	</footer>
+
+</body>
+
+</html>
