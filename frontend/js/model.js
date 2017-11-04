@@ -42,7 +42,7 @@ export class NoteList {
 	 * Finds the note with the given id
 	 */
 	find(_id){
-		return this.notes.find((note, i) => {
+		return this.notes.find((note) => {
 			return note._id == _id;
 		});
 	}
@@ -86,7 +86,7 @@ export class NoteList {
 		}
 
 		let noteList = [];
-		for (var i in objList) {
+		for (let i in objList) {
 			noteList.push(Note.fromJSON(objList[i]));
 		}
 		
@@ -100,7 +100,7 @@ export class NoteList {
      */
     static fromJSON(json) {
         let noteList = [];
-        for (var i in json) {
+        for (let i in json) {
             noteList.push(Note.fromJSON(json[i]));
         }
         return new NoteList(json);
@@ -112,16 +112,16 @@ export class NoteList {
  */
 export class Note {
 	constructor(_id, user, state, titel, description, rating, doDate, createDate, done) {
-        if (state == undefined){
+        if (state === undefined){
             state = "NEW";
         }
-        if (user == undefined){
+        if (user === undefined){
             user = User.fromStorage().email;
         }
-		if (rating == undefined){
+		if (rating === undefined){
 			rating = new Rating(5, 0);
 		}
-        if (createDate == undefined){
+        if (createDate === undefined){
             createDate = new Date();
         }
 		notePrivates.set(this, {_id, user, state, titel, description, rating, doDate, createDate, done})
@@ -221,7 +221,7 @@ export class Note {
 	static fromJSON(json) {
 		return new Note (json._id, json.user, json.state, json.titel, json.description, json.rating, json.doDate, json.createDate, json.done);
 	}
-};
+}
 
 
 /**
@@ -262,7 +262,7 @@ export class Rating {
 	static fromJSON(json) {
 		return new Rating (json.max, json.current);
 	}
-};
+}
 
 
 
@@ -304,7 +304,7 @@ export class User {
      * @returns {boolean} True if logged in
      */
     isLoggedIn(){
-    	if (this.token != undefined && this.token.length > 0) {
+    	if (this.token !== undefined && this.token.length > 0) {
     		return true;
 		} else {
             return false;
@@ -344,4 +344,4 @@ export class User {
             return new User("", "");
 		}
     }
-};
+}

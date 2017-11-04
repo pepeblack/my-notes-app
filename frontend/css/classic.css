@@ -9,8 +9,18 @@ header {
     padding: 0.5em;
 }
 
-.list-button {
+.button {
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+.smale-button {
     margin: 0.5em;
+}
+
+.js-user {
+    display: none;
+    visibility: hidden;
 }
 
 #note {

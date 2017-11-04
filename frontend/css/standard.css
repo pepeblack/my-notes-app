@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 header {
 	border-bottom: 1px solid lightgray;
 }
@@ -16,31 +15,15 @@ header {
 	background-color: deepskyblue;
 }
 
-.list-button {
-	margin: 0.1em;
+.smale-button {
+	margin: 0.5em;
 }
 
-.delete-button {
-	width:40px;
-	height:40px;
-	border: 0;
-	margin: 0.1em;
-	background: url("../images/delete.png");
-	background-position: 0 0;
-	background-size: 100%;
-	background-repeat: no-repeat;
+.js-user {
+	display: none;
+	visibility: hidden;
 }
 
-.edit-button {
-	width:40px;
-	height:40px;
-	border: 0;
-	margin: 0.1em;
-	background: url("../images/edit.png");
-	background-position: 0 0;
-	background-size: 100%;
-	background-repeat: no-repeat;
-}
 
 .mycheckbox {
 	display: grid;

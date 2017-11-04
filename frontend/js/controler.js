@@ -10,32 +10,6 @@ import { Utils, RATING_MAX, DATE_FORMAT_SHORT } from '/js/utils.js';
  */
 let mainControlerPrivates = new WeakMap();
 let newNodeControlerPrivates = new WeakMap();
-let loginControlerPrivates = new WeakMap();
-
-
-/**
- * Represent the login controler
- */
-export class LoginControler {
-    /**
-     * Constructor
-     */
-    constructor(view) {
-    	let restClient = new RestClient();
-        mainControlerPrivates.set(this, {restClient,
-                                         loginButton: view.getElementById('login')});
-    };
-
-    /**
-     * Render the UI
-     */
-    renderrUI() {
-        var privates = mainControlerPrivates.get(this);
-        privates.loginButton.onclick = function () {
-            privates.restClient.login("user", "password");
-        };
-    }
-}
 
 /**
  * Represent the main controler 
@@ -48,7 +22,7 @@ export class MainControler {
 		mainControlerPrivates.set(this, {model,restClient,
 			                             notesList: document.getElementById("notes"),
 			                             notesListSorter: (a,b) => {return a._id - b._id;},
-			                             notesListFilter: (a) => {return a.state == "NEW";},
+			                             notesListFilter: (a) => {return (a.state === "NEW");},
 			                             noteTemplate: document.getElementById('note_template').innerHTML,
 			                             ratingTemplate: document.getElementById('rating_template').innerHTML,
             							 loginButton: view.getElementById('login'),
@@ -66,7 +40,7 @@ export class MainControler {
 	 * Render the UI
 	 */
 	renderUI(){
-		var privates = mainControlerPrivates.get(this);
+		let privates = mainControlerPrivates.get(this);
 		privates.newNoteButton.onclick = function () {
 			window.location.href = "./newNote.html";
         };
@@ -88,32 +62,32 @@ export class MainControler {
         Utils.loadStyle(privates.styleSheet, privates.styleButton);
 
         privates.byFinishDateButton.onclick = function () {
-        	privates.notesListSorter = (a,b) => {return moment(a.doDate).diff(moment(b.doDate));}
+        	privates.notesListSorter = (a,b) => {return moment(a.doDate).diff(moment(b.doDate));};
 			window.controler.renderNotes();
         };
 
         privates.byCreationDateButton.onclick = function () {
-        	privates.notesListSorter = (a,b) => {return moment(a.createDate).diff(moment(b.createDate));}
+        	privates.notesListSorter = (a,b) => {return moment(a.createDate).diff(moment(b.createDate));};
 			window.controler.renderNotes();
         };
 
         privates.byImportanceBotton.onclick = function () {
-        	privates.notesListSorter = (a,b) => {return b.rating.current - a.rating.current;}
+        	privates.notesListSorter = (a,b) => {return b.rating.current - a.rating.current;};
 			window.controler.renderNotes();
         };
 
         privates.showFinishedButton.onclick = function () {
         	if (privates.showFinishedButton.checked) {
-                privates.notesListFilter = (a) => {return a.state == "DONE";}
+                privates.notesListFilter = (a) => {return a.state === "DONE";}
 			} else {
-                privates.notesListFilter = (a) => {return a.state == "NEW";}
+                privates.notesListFilter = (a) => {return a.state === "NEW";}
 			}
 			window.controler.renderNotes();
         };
 
         // set default sorter
         privates.byFinishDateButton.checked = true;
-        privates.notesListSorter = (a,b) => {return moment(a.doDate).diff(moment(b.doDate));}
+        privates.notesListSorter = (a,b) => {return moment(a.doDate).diff(moment(b.doDate));};
 
         this.updateStatus();
 	};
@@ -122,12 +96,13 @@ export class MainControler {
 	 * Update the status of the User
      */
 	updateStatus() {
-        var privates = mainControlerPrivates.get(this);
+        let privates = mainControlerPrivates.get(this);
 
 		let user = User.fromStorage();
         let jsUser = document.getElementsByClassName('js-user');
         for (let i = 0; i < jsUser.length; i++) {
             jsUser[i].style.display = user.isLoggedIn() ? "grid" : "none";
+            jsUser[i].style.visibility = user.isLoggedIn() ? "visible" : "hidden";
         }
 
         let jsNoUser = document.getElementsByClassName('js-no-user');
@@ -163,12 +138,12 @@ export class MainControler {
                 return Utils.cutText(this.description, 2);
             },
             "renderr_doDate": function () {
-                if (this.state == "NEW") {
+                if (this.state === "NEW") {
                     return Utils.getFormatedDateLong(this.doDate);
                 }
             },
             "renderr_reminig": function () {
-                if (this.state == "DONE") {
+                if (this.state === "DONE") {
                     return Utils.getDaysPased(this.done);
                 } else {
                     return Utils.getDaysRemining(this.doDate);
@@ -192,7 +167,6 @@ export class MainControler {
                     note.done = "";
                     note.state = "NEW"
                 }
-//                privates.model.store();
                 privates.restClient.updateNote(note).then(() => {
                     window.controler.renderUI();
                 });
@@ -285,12 +259,12 @@ export class NewNoteControler {
      * validates the input
      */
 	validateInput(){
-	    let error = true
+	    let error = true;
         let privates = newNodeControlerPrivates.get(this);
         let className = "";
 
         // At least the titel must be given
-        if (privates.titelInput.value.length == 0) {
+        if (privates.titelInput.value.length === 0) {
             className = privates.titelError.className.replace("input-valid", "input-not-valid");
             error = false;
         } else {
@@ -323,7 +297,6 @@ export class NewNoteControler {
         privates.note.rating.current = privates.ratingControl.getRating();
         privates.note.doDate = moment(privates.doDateInput.value, DATE_FORMAT_SHORT).toDate();
 
-        // privates.model.store();
         if (id) {
             privates.restClient.updateNote(privates.note).then( () => {
                 window.location.href = "./index.html";
@@ -347,16 +320,15 @@ export class NewNoteControler {
             return
         }
 
-        //privates.note = privates.model.find(id);
         privates.restClient.getNote(id).then( (note) => {
             privates.note = Note.fromJSON(note);
             privates.titelInput.value = privates.note.titel;
             privates.descriptionInput.value = privates.note.description;
-            privates.ratingControl.setRating(privates.note.rating.current)
+            privates.ratingControl.setRating(privates.note.rating.current);
             privates.doDateInput.value = Utils.getFormatedDateShort(privates.note.doDate);
             privates.doDateSelected.innerHTML = Utils.getDaysRemining(privates.note.doDate);
             privates.picker.setDate(Utils.getFormatedDateLong(privates.note.doDate));
         });
 
     }
-};
+}

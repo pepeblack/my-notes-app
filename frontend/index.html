@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Note Pro</title>
-	<link id="stylesheet" rel="stylesheet" href="/css/standard.css" titel="standard layout">
+	<link id="stylesheet" rel="stylesheet" href="css/standard.css">
 	<link rel="stylesheet" href="css/layout.css">
 	<link rel="stylesheet" href="css/rating.css">
 	<script src="lib/rating/rating.js"></script>
@@ -14,7 +14,7 @@
 		{{#notes}}
 		  	<div id="note">
 			    <div class= "column1">
-					<p> {{renderr_reminig}} <br> {{renderr_doDate}} </p>
+					{{renderr_reminig}} <br> {{renderr_doDate}}
 				</div>
 			    <div class= "column2">{{titel}}</div>
 	    		<div class= "column3">
@@ -32,8 +32,8 @@
 			    	<p id="content">{{{renderr_description}}}</p>
 		    	</div>
 		    	<div class= "box4 ">
-			    	<button class="list-button button" onclick="location.href='./newNote.html?id={{_id}}';" type="button">edit</button>
-					<button class="list-button button" name="delete" data-index="{{_id}}" type="delete">delete</button>
+			    	<button class="smale-button button" onclick="location.href='./newNote.html?id={{_id}}';" type="button">edit</button>
+					<button class="smale-button button" name="delete" data-index="{{_id}}" type="delete">delete</button>
 				</div>
 	  		</div>
 		{{/notes}}
@@ -50,7 +50,7 @@
 			{{/isActive}}
 			{{#isNotActive}}
 				<li class="c-rating__item is-static" data-index="{{data-index}}"></li>
-			{{/isNotActive}}		</h1>
+			{{/isNotActive}}
 
 		</ul>
 	</script>
@@ -60,21 +60,23 @@
 	<header>
 		<h1>
 			<img class="box12" src="../images/note.png" style="height: 1em"/>
-			<div class="box22" >My-Notes-App!</div>
+			<span class="box22">My-Notes-App!</span>
 			<input class="column3 button js-user" type="button" value="Logout" id="logout" >
 			<input class="column3 button js-no-user" type="button" value="Login" id="login" >
-			<select id="style" class="column3 button" name="style">
+			<select id="style" class="column3 button">
 				<option value="./css/standard.css">standard style</option>
 				<option value="./css/classic.css">classic style</option>
 			</select>
 		</h1>
 	</header>
 
-	<div id="command1" class="js-user">
+	<div id="command" class="js-user">
 		<button id="newNote" class="column1 button " type="button">Create new Note</button>
-	</div>
-
-	<div id="command2" class="js-user">
+		<div class="mycheckbox column6" >
+			<input id="showFinished" type="checkbox">
+			<div class="icheck_line-icon"></div>
+			<label for="showFinished">Show finished</label>
+		</div>
 		<div class="myradio column1" >
 			<input type="radio" id="byFinishDate" name="sort">
 			<label for="byFinishDate">By finish Date</label>
@@ -87,23 +89,11 @@
 			<input type="radio" id="byImportance" name="sort">
 			<label for="byImportance">By Importance</label>
 		</div>
-		<div class="mycheckbox column5" >
-			<input id="showFinished" type="checkbox">
-			<div class="icheck_line-icon"></div>
-			<label for="showFinished">Show finished</label>
-		</div>
 
 	</div>
 
 	<div id="notes" class="js-user">
-	<div id="note">
-		<p class= "column24"></p>
 	</div>
-	</div>
-
-	<footer>
-	<!--- Fußzeile --->
-	</footer>
 
 </body>
 
