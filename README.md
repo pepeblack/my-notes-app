@@ -32,7 +32,7 @@ https://nodejs.org
 
 Anschliessend im root Verzeichniss folgende Befehle ausführen um die App zu starten:
 ```
-    $ nmp install
+    $ npm install
     $ node index.js
 ```
 Sobald node.js gestartet ist, kann via Port 8080 auf my-nodes-app zugegriffen werden
