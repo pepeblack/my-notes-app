@@ -23,6 +23,22 @@ eingeschalted werden:
 Login/Logout verwendet aktuell einen default Benutzer/Passwort. Habe hier noch keinen Benutzer Verwaltung
 umgesetzt.
 
+## node.js
+
+Um die App mit node.js auf dem eigenen Rechner zu starten, muss node.js installiert sein. Informationen zur installtion
+sind hier zu finden:
+
+https://nodejs.org
+
+Anschliessend im root Verzeichniss folgende Befehle ausführen um die App zu starten:
+```
+    $ nmp install
+    $ node index.js
+```
+Sobald node.js gestartet ist, kann via Port 8080 auf my-nodes-app zugegriffen werden
+
+http://localhost:8080
+
 ## docker
 
 Weiter kann das gesamte Projekt innerhalb eines Docker Kontainer ausgef?hrt werden. Neben Docker CE muss noch
@@ -32,13 +48,13 @@ Docker-Compose installiert sein.
 * Docker Composer: https://docs.docker.com/compose/install/
 
 Anschliessen im Root Verzeichniss folgenden Befehl ausführen um den Kontainer zu starten:
-
-    `docker-compose up`
-
+```
+    $ docker-compose up
+```
 Nachdem der Kontainer gestartet ist kann via Port 8080 auf my-notes-app zugegriffen werden. Auf dem Port 80 wird
 ein ngins WebServer gestartet der nur auf das Frontend zeigt.
 
-* notejs: http://localhost:8080
+* note.js: http://localhost:8080
 * nginx: http://localhost
 
 Sämtliche änderungen am Code werden anschliessend automatisch in den Kontainer übernommern. 
