@@ -46,6 +46,14 @@ img {
     margin-bottom: 0.5em;
 }
 
+.input-valid {
+    visibility: hidden;
+}
+
+.input-not-valid {
+    visibility: visible;
+}
+
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;

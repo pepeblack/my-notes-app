@@ -36,7 +36,7 @@ Anschliessen im Root Verzeichniss folgenden Befehl ausführen um den Kontainer z
     `docker-compose up`
 
 Nachdem der Kontainer gestartet ist kann via Port 8080 auf my-notes-app zugegriffen werden. Auf dem Port 80 wird
-ein NGINX WebServer gestartet der nur auf das Frontend zeigt.
+ein ngins WebServer gestartet der nur auf das Frontend zeigt.
 
 * notejs: http://localhost:8080
 * nginx: http://localhost
